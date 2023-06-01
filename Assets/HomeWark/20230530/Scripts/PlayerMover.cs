@@ -52,7 +52,7 @@ public class PlayerMover : MonoBehaviour
         ySpeed += Physics.gravity.y * Time.deltaTime; // 중력방향의 y방향으로 계속해서 속력을 가짐 // 속력의 개념이기 때문에 deltaTime을 가짐 // 아래쪽으로 계속해서 빨라짐 // 설정에 있는 Physics - gravity의 값을 가짐
 
         // if (characterController.isGrounded) 캐릭터컨트롤러에는 isGrounded는 쓰지말 것 작동이 잘 안됨 조금만 틀어져도 안먹히고 조금만 부딪혀도 먹힘
-        if (GroundCheck()) // 캐릭터컨트롤러가 땅에 붙어있는 경우 ySpeed는 0으로 설정 // 아래로 떨어지다가 땅에 충돌해서 땅 위에 있는 경우 속력을 0으로 세팅해서 위 아래 (y) 로 움직이지 않음
+        if (GroundCheck() && ySpeed < 0 ) // 점프뛰었을때도 땅에 붙어있을수가 있으니 ySpeed가 음수인경우 // 캐릭터컨트롤러가 땅에 붙어있는 경우 ySpeed는 0으로 설정 // 아래로 떨어지다가 땅에 충돌해서 땅 위에 있는 경우 속력을 0으로 세팅해서 위 아래 (y) 로 움직이지 않음
             ySpeed = 0; 
 
         characterController.Move(Vector3.up * ySpeed * Time.deltaTime); // y축(up방향)에 해당하는 방향으로 계속해서 움직여줌
@@ -61,12 +61,13 @@ public class PlayerMover : MonoBehaviour
     {
         ySpeed = jumpSpeed; // ySpeed를 가해주면 점프를 함
     }
-    private bool GroundCheck()
+    private bool GroundCheck() // 그라운드체크 자체가 발로해야함
     {
         RaycastHit hit;
-        return Physics.SphereCast(transform.position, 0.5f, Vector3.down, out hit, 0.5f); // 반환할 때 부딪혔으면 true 아니면 false
+        return Physics.SphereCast(transform.position + Vector3.up * 1, 0.5f, Vector3.down, out hit, 0.6f); // 반환할 때 부딪혔으면 true 아니면 false
         // (어디부터 쏘는지, 어느정도 둘레, 어느방향, 어느정도의 길이)
-        // 동그라미를 날려서 동그라미로 부딪힌다.
+        // 쏠때는 플레이어포지션의 윗방향으로 1만큼의 높이에서 0.5만큼의 둘래로 아랫방향으로 0.6만큼 쏘면 반드시 0.1만큼 땅바닥 아래로 쏜다
+        // 동그라미를 날려서 동그라미로 부딪힌다
 
     }
 

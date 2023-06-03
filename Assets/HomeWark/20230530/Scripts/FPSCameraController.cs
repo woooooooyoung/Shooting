@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class FPSCameraController : MonoBehaviour // 카메라의 움직임 구현하기
+public class FPSCameraController : MonoBehaviour // 1인칭 카메라의 움직임 구현하기
 {
-    [SerializeField] Transform cameraRoot;   // 카메라 위치
-    [SerializeField] float mouseSensitivity; // 마우스 속도(마우스 민감도)
+    [SerializeField] Transform cameraRoot;   // 카메라 위치 // 카메라의 트랜스폼을 넣어줌2
+    [SerializeField] float mouseSensitivity; // 마우스 속도(마우스 민감도) // 회전에 대함 감도 // 회전속도
 
-    private Vector2 lookDelta;
+    private Vector2 lookDelta;  // 
     private float xRotation;
     private float yRotation;
 
@@ -28,10 +28,10 @@ public class FPSCameraController : MonoBehaviour // 카메라의 움직임 구현하기
     // 카메라가 먼저 이동했을 떄 플레이어가 같은 방향을 바라봐줘야함 // 카메라가 이동해서 플레이어가 그 방향을 바라보면 플레이어가 바라봤기 때문에 하위자식인 카메라도 다시 바라보게되는 연쇄적인 회전이 일어날 수가 있음. // 연쇄작동때문에 플레이어는 360도 계속 돌게됨
     }
 
-    private void Look() // 캐릭터도 같이 움직여야함 // 입력받은 만큼 카레마를 입력받은곳으로 회전
+    private void Look() // 캐릭터도 같이 움직여야함 // 입력받은 만큼 카메라를 입력받은곳으로 회전
     {
-        yRotation += lookDelta.x * mouseSensitivity * Time.deltaTime; // 좌 우
-        xRotation -= lookDelta.y * mouseSensitivity * Time.deltaTime; // 상 하 (반전)
+        yRotation += lookDelta.x * mouseSensitivity * Time.deltaTime; // 좌 우              // y회전값만큼 x변화량(양 옆)으로 넣음
+        xRotation -= lookDelta.y * mouseSensitivity * Time.deltaTime; // 상 하 (반전)       // x회전값만큼 y변화량(위 아래)으로 넣음
                                                                       // xRotation += lookDelta.y * mouseSensitivity * Time.deltaTime; // 상 하 마우스를 내리면 시점이 위로 올라감 마우스를 올리면 시점이 아래로 내려감
         
         xRotation = Mathf.Clamp(xRotation, -80f, 80f); // 플레이어의 회전에 대한 제약, 제약을 안걸면 마우스를 아래나 위, 좌우로 움직여 캐릭터의 목을 꺽은 상태로 뒤도 돌아볼 수 있음
@@ -45,7 +45,7 @@ public class FPSCameraController : MonoBehaviour // 카메라의 움직임 구현하기
 
     private void OnLook(InputValue value)
     {
-        lookDelta = value.Get<Vector2>(); // 아래쪽으로 움직이면 y의 값을 받게 함
+        lookDelta = value.Get<Vector2>(); // x의 값을 가지게 됨 아래쪽으로 움직이면 y의 값을 받게 함
     }
 
 

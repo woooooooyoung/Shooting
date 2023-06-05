@@ -629,7 +629,12 @@ public class TraceState : StateBase<Bee>
 // 시네머신을 사용하고 있으면 화면 움직임을 더 쉽게 구현함
 // 버추얼카메라에서 플레이어와 똑같은 시점 위치를 맞춘 뒤 Aim에서 POV(Point Of View)를 넣어주면 마우스위치에 따라 카메라도 같이 움직이는 쉬운 방법이 있다.(시네머신을 사용하고 있는 경우만 가능)
 //
-//
+// <인터넷 정보검색 연산자>
+// AND  : 두 단어가 모두 포함
+// OR   : 두개 중 하나만 포함
+// NOT  : 해당 단어를 포함하지 않은 내용
+// NEAR : 해당 단어와 인접해 있는 내용 
+
 // <커서 잠금>
 // Cursor.lockState = CursorLockMode.None;     : 게임과 상관없이 평소처럼 게임밖으로 나갈수도 있음. ESC를 누르면 마우스가 풀림
 // Cursor.lockState = CursorLockMode.Locked;   : 게임 정 가운데에다 잡아둠    ex. FPS
